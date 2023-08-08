@@ -9,7 +9,8 @@ metadata:
       alb.ingress.kubernetes.io/group.name: skills-match-tg
       alb.ingress.kubernetes.io/scheme: internet-facing
       alb.ingress.kubernetes.io/target-type: ip
-      alb.ingress.kubernetes.io/subnets: subnet-035d7aa436e3f19b6, subnet-05d0d98516c831359, subnet-0b5b2a255e576cc8c
+# if you subnet hard appointed      
+#      alb.ingress.kubernetes.io/subnets: subnet-035d7aa436e3f19b6, subnet-05d0d98516c831359, subnet-0b5b2a255e576cc8c
       alb.ingress.kubernetes.io/healthcheck-path: "/health"
       alb.ingress.kubernetes.io/actions.response-403: >
         {"type":"fixed-response","fixedResponseConfig":{"contentType":"text/plain","statusCode":"403"}}
