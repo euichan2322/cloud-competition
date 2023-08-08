@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: match
+  namespace: skills
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+  replicas: 2
+  selector:
+    matchLabels:
+      app: match
+  template:
+    metadata:
+      labels:
+        app: match
+        skills/version: v1
+    spec:
+      containers:
+        - name: match
+          image: 217888098143.dkr.ecr.ap-northeast-2.amazonaws.com/match:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+      nodeSelector:
+        skills/dedicated: app
