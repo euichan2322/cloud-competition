@@ -10,9 +10,9 @@ vpc:
   id: vpc-001d230c69000f6f9
   subnets:
     private:
-      private-ap-northeast-2a: {id: subnet-0f5aaaa2e152ff697}
-      private-ap-northeast-2b: {id: subnet-0fa96d15b8230eafc}
-      private-ap-northeast-2c: {id: subnet-031a299615e513f77}
+      private-a: {id: subnet-0f5aaaa2e152ff697}
+      private-b: {id: subnet-0fa96d15b8230eafc}
+      private-c: {id: subnet-031a299615e513f77}
 
 managedNodeGroups:
   - name: app
