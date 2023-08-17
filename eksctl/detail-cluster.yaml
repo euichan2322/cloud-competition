@@ -18,7 +18,7 @@ karpenter:
 vpc:
   subnets:
     private:
-      private-a: { id: subnet-01c5332c1257853da	}
+      private-a: { id: subnet-01c5332c1257853da }
       private-b: { id: subnet-0842cbe6861ccc41a }
       private-c: { id: subnet-123 }
 
@@ -102,34 +102,8 @@ managedNodeGroups:
     instanceType: c5.large
     instanceName: app-ng
     desiredCapacity: 2
-    minSize: 2
-    maxSize: 20
-    privateNetworking: true
-    volumeType: gp2
-    volumeEncrypted: true
-    subnets:
-      - private-a
-      - private-b
-#    tags:
-#      k8s.io/cluster-autoscaler/enabled: "true"
-#      k8s.io/cluster-autoscaler/$cluster: "owned"
-    iam:
-      withAddonPolicies:
-        imageBuilder: true
-        #externalDNS: true
-        #certManager: true
-        cloudWatch: true
-        albIngress: true
-          taints:
-            - key: dedicated
-              value: app
-              effect: NoSchedule
-
-  - name: addon-ng
-    labels: { role: addons }
-    instanceType: c5.large
-    instanceName: addon-ng
-    desiredCapacity: 2
+    amiFamily:Bottlerocket
+    ami: auto-ssm
     minSize: 2
     maxSize: 20
     privateNetworking: true
@@ -149,3 +123,43 @@ managedNodeGroups:
         #certManager: true
         cloudWatch: true
         albIngress: true
+       attachPolicyARNs:
+          - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+          - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+          - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+          - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+    taints:
+      - key: dedicated
+        value: app
+        effect: NoSchedule
+
+  - name: addon-ng
+    labels: { role: addons }
+    instanceType: c5.large
+    instanceName: addon-ng
+    desiredCapacity: 2
+    amiFamily:Bottlerocket
+    minSize: 2
+    maxSize: 20
+    privateNetworking: true
+    volumeType: gp2
+    volumeEncrypted: true
+    subnets:
+      - private-a
+      - private-b
+      - private-c
+#    tags:
+#      k8s.io/cluster-autoscaler/enabled: "true"
+#      k8s.io/cluster-autoscaler/$cluster: "owned"
+    iam:
+      withAddonPolicies:
+        imageBuilder: true
+        #externalDNS: true
+        #certManager: true
+        cloudWatch: true
+        albIngress: true
+       attachPolicyARNs:
+          - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+          - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+          - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+          - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
