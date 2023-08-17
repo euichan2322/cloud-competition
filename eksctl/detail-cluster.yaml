@@ -2,11 +2,11 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: $cluster
+  name: cluster
   version: "1.27"
   region: ap-northeast-2
   tags:
-    karpenter.sh/discovery: $cluster
+    karpenter.sh/discovery: cluster
 
 karpenter:
   version: 'v0.29.2' # Exact version must be provided
@@ -16,14 +16,15 @@ karpenter:
 # eksctl utils update-cluster-endpoints --name=wsi-api-cluster --private-access=true --public-access=false
 
 vpc:
+  id: vpc-010e57c0400e10abf
   subnets:
     private:
-      private-a: { id: subnet-01c5332c1257853da }
-      private-b: { id: subnet-0842cbe6861ccc41a }
-      private-c: { id: subnet-123 }
+      private-a: { id: subnet-0cf8e74fced734ab1 }
+      private-b: { id: subnet-00c0b576d44f7fff3 }
+      private-c: { id: subnet-06742dd6777a3a597 }
 
 iamIdentityMappings:
-  - arn: arn:aws:iam::$account_id:root
+  - arn: arn:aws:iam::631780062122:root
     groups:
       - system:masters
     username: admin
@@ -102,8 +103,7 @@ managedNodeGroups:
     instanceType: c5.large
     instanceName: app-ng
     desiredCapacity: 2
-    amiFamily:Bottlerocket
-    ami: auto-ssm
+    amiFamily: Bottlerocket
     minSize: 2
     maxSize: 20
     privateNetworking: true
@@ -123,7 +123,7 @@ managedNodeGroups:
         #certManager: true
         cloudWatch: true
         albIngress: true
-       attachPolicyARNs:
+      attachPolicyARNs:
           - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
           - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
           - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
@@ -138,7 +138,7 @@ managedNodeGroups:
     instanceType: c5.large
     instanceName: addon-ng
     desiredCapacity: 2
-    amiFamily:Bottlerocket
+    amiFamily: Bottlerocket
     minSize: 2
     maxSize: 20
     privateNetworking: true
@@ -158,7 +158,7 @@ managedNodeGroups:
         #certManager: true
         cloudWatch: true
         albIngress: true
-       attachPolicyARNs:
+      attachPolicyARNs:
           - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
           - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
           - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
