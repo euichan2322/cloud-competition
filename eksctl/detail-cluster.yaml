@@ -23,13 +23,6 @@ vpc:
       private-b: { id: subnet-00c0b576d44f7fff3 }
       private-c: { id: subnet-06742dd6777a3a597 }
 
-iamIdentityMappings:
-  - arn: arn:aws:iam::631780062122:root
-    groups:
-      - system:masters
-    username: admin
-    noDuplicateARNs: true # prevents shadowing of ARNs
-
 cloudWatch:
   clusterLogging:
     enableTypes: ["*"]
