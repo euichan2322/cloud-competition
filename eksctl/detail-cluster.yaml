@@ -2,11 +2,11 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: skills-cluster
+  name: $cluster
   version: "1.27"
   region: ap-northeast-2
   tags:
-    karpenter.sh/discovery: skills-cluster
+    karpenter.sh/discovery: $cluster
 
 karpenter:
   version: 'v0.29.2' # Exact version must be provided
@@ -97,10 +97,10 @@ iam:
   #      Resource: '*'
 
 managedNodeGroups:
-  - name: skills-app-ng
+  - name: app-ng
     labels: { role: apps }
     instanceType: c5.large
-    instanceName: skills-app-ng
+    instanceName: app-ng
     desiredCapacity: 2
     minSize: 2
     maxSize: 20
@@ -112,7 +112,7 @@ managedNodeGroups:
       - private-b
 #    tags:
 #      k8s.io/cluster-autoscaler/enabled: "true"
-#      k8s.io/cluster-autoscaler/skills-cluster: "owned"
+#      k8s.io/cluster-autoscaler/$cluster: "owned"
     iam:
       withAddonPolicies:
         imageBuilder: true
@@ -125,10 +125,10 @@ managedNodeGroups:
               value: app
               effect: NoSchedule
 
-  - name: skills-addon-ng
+  - name: addon-ng
     labels: { role: addons }
     instanceType: c5.large
-    instanceName: skills-addon-ng
+    instanceName: addon-ng
     desiredCapacity: 2
     minSize: 2
     maxSize: 20
@@ -141,7 +141,7 @@ managedNodeGroups:
       - private-c
 #    tags:
 #      k8s.io/cluster-autoscaler/enabled: "true"
-#      k8s.io/cluster-autoscaler/skills-cluster: "owned"
+#      k8s.io/cluster-autoscaler/$cluster: "owned"
     iam:
       withAddonPolicies:
         imageBuilder: true
