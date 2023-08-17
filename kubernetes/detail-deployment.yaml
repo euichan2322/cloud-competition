@@ -21,7 +21,7 @@ spec:
       containers:
         - name: blue-container
           image: 432231866893.dkr.ecr.ap-northeast-2.amazonaws.com/blue:latest
-					imagePullPolicy: Always
+	  imagePullPolicy: Always
           resources:
             limits:
               memory: "128Mi"
@@ -36,6 +36,8 @@ spec:
         - key: dedicated
           value: app
           effect: NoSchedule
+      nodeSelector:
+        dedicated: app
 
 
       톨러레이션, 노드 어피니티, readinessProbe, livenessProbe, Startup Probe, terminationGracePeriodSeconds, Graceful shutdow, container lifecycle hooks 추가하기
