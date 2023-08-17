@@ -92,7 +92,7 @@ iam:
 
 managedNodeGroups:
   - name: app-ng
-    labels: { role: apps }
+    labels: { dedicated: app }
     instanceType: c5.large
     instanceName: app-ng
     desiredCapacity: 2
@@ -127,7 +127,7 @@ managedNodeGroups:
         effect: NoSchedule
 
   - name: addon-ng
-    labels: { role: addons }
+    labels: { dedicated: addons }
     instanceType: c5.large
     instanceName: addon-ng
     desiredCapacity: 2
