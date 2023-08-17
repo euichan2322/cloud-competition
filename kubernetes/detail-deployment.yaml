@@ -8,7 +8,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 25%
-      maxUnavailable: 25% c
+      maxUnavailable: 25%
   replicas: 2
   selector:
     matchLabels:
@@ -20,8 +20,8 @@ spec:
     spec:
       containers:
         - name: blue-container
-          image: 432231866893.dkr.ecr.ap-northeast-2.amazonaws.com/blue:latest
-	  imagePullPolicy: Always
+          image: 631780062122.dkr.ecr.ap-northeast-2.amazonaws.com/python:latest
+          imagePullPolicy: Always
           resources:
             limits:
               memory: "128Mi"
@@ -37,7 +37,7 @@ spec:
           value: app
           effect: NoSchedule
       nodeSelector:
-        dedicated: app
+        role: apps
 
 
 #톨러레이션, 노드 어피니티, readinessProbe, livenessProbe, Startup Probe, terminationGracePeriodSeconds, Graceful shutdow, container lifecycle hooks 추가하기
