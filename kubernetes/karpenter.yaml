@@ -9,10 +9,16 @@ spec:
       values: [nano, micro, small]
     - key: "kubernetes.io/arch" # If not included, the webhook for the AWS Cloud Provider will default to amd64
       operator: In
-      values: ["amd64"]
+      values: ["amd64"] # arm64
     - key: "karpenter.sh/capacity-type"         # optional, set to on-demand by default, spot if both are listed
       operator: In
-      values: ["on-demand", "spot"]
+      values: ["on-demand", "spot"] # ["on-demand", "spot"]
+    - key: "topology.kubernetes.io/zone"      # 가용 영역
+      operator: In
+      values: ["ap-northeast-2a", "ap-northeast-2b", "ap-northeast-2c"] # add "ap-northeast-2d
+        #    - key: node.kubernetes.io/instance-type
+        #      operator: In
+        #      values: ["m5.xlarge","m5.2xlarge"]
   providerRef:                                # optional, recommended to use instead of `provider`
     name: apps-provider
   taints:
@@ -31,9 +37,9 @@ metadata:
 spec:
   amiFamily: Bottlerocket
   subnetSelector:                             # required
-    karpenter.sh/discovery: ${CLUSTER_NAME}
+    karpenter.sh/discovery: cluster
   securityGroupSelector:                      # required, when not using launchTemplate
-    karpenter.sh/discovery: ${CLUSTER_NAME}
+    karpenter.sh/discovery: cluster
   blockDeviceMappings:
     - deviceName: /dev/xvda
       ebs:
@@ -41,5 +47,11 @@ spec:
         volumeSize: 20Gi
         deleteOnTermination: true
   tags:
-    NodeType: "karpenter-node"
-    IntentLabel: "apps"
+    Name: app-node
+    node.k8s.aws/dedicated: app # dedicated: app이라는 값을 노드에 label, ec2에 태그 할당
+  userData: ""
+  metadataOptions:
+    httpEndpoint: enabled
+    httpProtocolIPv6: disabled
+    httpPutResponseHopLimit: 1
+    httpTokens: required
