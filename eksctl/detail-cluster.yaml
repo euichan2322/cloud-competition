@@ -127,7 +127,7 @@ managedNodeGroups:
         effect: NoSchedule
 
   - name: addon-ng
-    labels: { dedicated: addons }
+    labels: { dedicated: addon }
     instanceType: c5.large
     instanceName: addon-ng
     desiredCapacity: 2
