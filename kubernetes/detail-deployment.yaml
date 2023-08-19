@@ -37,7 +37,7 @@ spec:
           value: app
           effect: NoSchedule
       nodeSelector:
-        role: apps
+        dedicated: app
 
 
 #톨러레이션, 노드 어피니티, readinessProbe, livenessProbe, Startup Probe, terminationGracePeriodSeconds, Graceful shutdow, container lifecycle hooks 추가하기
