@@ -24,7 +24,7 @@ spec:
               service:
                 name: match
                 port:
-                  number: 8080
+                  number: 80
           - path: /
             pathType: Prefix
             backend:
