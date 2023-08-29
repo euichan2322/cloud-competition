@@ -95,9 +95,9 @@ managedNodeGroups:
     labels: { dedicated: app }
     instanceType: c5.large
     instanceName: app-ng
-    desiredCapacity: 1
+    desiredCapacity: 2
     amiFamily: Bottlerocket
-    minSize: 1
+    minSize: 2
     maxSize: 20
     privateNetworking: true
     volumeType: gp2
@@ -130,9 +130,9 @@ managedNodeGroups:
     labels: { dedicated: addon }
     instanceType: c5.large
     instanceName: addon-ng
-    desiredCapacity: 1
+    desiredCapacity: 2
     amiFamily: Bottlerocket
-    minSize: 1
+    minSize: 2
     maxSize: 20
     privateNetworking: true
     volumeType: gp2
