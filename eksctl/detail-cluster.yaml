@@ -111,11 +111,11 @@ managedNodeGroups:
 #      k8s.io/cluster-autoscaler/$cluster: "owned"
     iam:
       withAddonPolicies:
-        imageBuilder: true
+        #imageBuilder: true
         #externalDNS: true
         #certManager: true
         cloudWatch: true
-        albIngress: true
+        #albIngress: true
       attachPolicyARNs:
           - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
           - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
@@ -146,11 +146,11 @@ managedNodeGroups:
 #      k8s.io/cluster-autoscaler/$cluster: "owned"
     iam:
       withAddonPolicies:
-        imageBuilder: true
+        #imageBuilder: true
         #externalDNS: true
         #certManager: true
         cloudWatch: true
-        albIngress: true
+        #albIngress: true
       attachPolicyARNs:
           - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
           - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
