@@ -1,0 +1,12 @@
+apiVersion: vpcresources.k8s.aws/v1beta1
+kind: SecurityGroupPolicy
+metadata:
+  name: token-sg
+  namespace: dev
+spec:
+  podSelector:
+    matchLabels:
+      app: token
+  securityGroups:
+    groupIds:
+      - sg-0c4be8a9f768a95c5
