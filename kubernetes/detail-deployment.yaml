@@ -18,6 +18,7 @@ spec:
       labels:
         app: blue
     spec:
+      #serviceAccountName: test-irsa
       containers:
         - name: blue-container
           image: 631780062122.dkr.ecr.ap-northeast-2.amazonaws.com/python:latest
