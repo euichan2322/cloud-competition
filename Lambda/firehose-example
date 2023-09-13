@@ -1,0 +1,42 @@
+import base64
+import json
+import datetime
+
+print('Loading function')
+
+def lambda_handler(event, context):
+    
+    output = []
+
+    for record in event['records']:
+        print(record['recordId'])
+        payload = base64.b64decode(record['data']).decode('utf-8')
+        
+        source_dict = json.loads(payload)
+        device_time_raw = source_dict["device_ts"]
+        device_time_element = datetime.datetime.strptime(device_time_raw, "%Y-%m-%d %H:%M:%S.%f")
+        
+        destination_dic = {
+            "uuid" : source_dict["uuid"],
+            "timestamp" : device_time_element.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3], # Set Timestamp format
+            "device_id" : int(source_dict["device_id"]),
+            "temp_celsius" : int(source_dict["device_temp"]),
+            "temp_fahrenheit" : float(int(source_dict["device_temp"])*1.8 + 32), # Add fahrenheit temperature
+            "track_id" : int(int(source_dict["track_id"])),
+            "activity_type" : source_dict["activity_type"]
+        }
+        print(destination_dic['timestamp'])
+        print(type(destination_dic['timestamp']))
+        
+        payload = json.dumps(destination_dic) +"\n"
+        
+        output_record = {
+            'recordId': record['recordId'],
+            'result': 'Ok',
+            'data': base64.b64encode(payload.encode('ascii')).decode('utf-8')
+        }
+        output.append(output_record)
+
+    print('Successfully processed {} records.'.format(len(event['records'])))
+    
+    return {'records': output}
